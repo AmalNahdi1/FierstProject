@@ -1,0 +1,71 @@
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #ddd;
+    }
+</style>
+{% if formations is defined and formations|length %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Nombre de participants</th>
+            <th>Participer</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for formation in formations %}
+            <tr>
+                <td>{{ formation.ref }}</td>
+                <td>{{ formation.Titre|capitalize }}</td>
+                <td>{{ formation.Description }}</td>
+                <td>{{ formation.date_debut }}</td>
+                <td>{{ formation.date_fin }}</td>
+                <td>{{ formation.nb_participants }}</td>
+                {% if formation.nb_participants == 0 %}
+                <td><a href="{{ path('club_get_name', {'name': formation.Titre}) }}">partciper</a></td>
+                {% else %}
+                <td>#</td>
+
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>Nombre de formations: {{ formations|length }}</p>
+
+
+<p>Nombre de formations théoriques: {{ formations|filter(formation => formation.Description == "formation theorique")|length }}</p>
+{% else %}
+  <p>No formation available</p>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
